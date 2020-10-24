@@ -65,9 +65,9 @@ class SimCLR(object):
 
         model = ResNetSimCLR(**self.config["model"])
 
-        if self.config["multiple_gpus"]:
+        if torch.cuda.device_count() > 1:
             model = nn.DataParallel(model)
-        
+
         model = model.to(self.device)
         model = self._load_pre_trained_weights(model)
 
